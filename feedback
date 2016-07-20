@@ -426,13 +426,13 @@ sub process_submission {
 	    # extension, so we check for the value of the 'plugin'
 	    # hidden field (from the comment form).
 
-	    my $plugin_param = sanitize_param(param('plugin'));
+	    my $plugin_param = sanitize_param(scalar(param('plugin')));
 	    if ($plugin_param eq 'writeback') {
 		# Comment previews are distinguished from comment posts
 		# by the value of the 'submit' parameter associated with
 		# the 'Post' and 'Preview' form buttons.
 
-		my $submit_param = sanitize_param(param('submit'));
+		my $submit_param = sanitize_param(scalar(param('submit')));
 		$status_msg = '';
 		if ($submit_param eq 'Preview') {
 		    $status_msg = handle_feedback('preview');
@@ -447,8 +447,8 @@ sub process_submission {
 	    }
 	}
     } elsif (request_method() eq 'GET' || request_method() eq 'HEAD') {
-	my $moderate_param = sanitize_param(param('moderate'));
-	my $feedback_param = sanitize_param(param('feedback'));
+	my $moderate_param = sanitize_param(scalar(param('moderate')));
+	my $feedback_param = sanitize_param(scalar(param('feedback')));
 
 	if ($moderate_param) {
 	    # We have two possible cases: moderator approval or rejection,
