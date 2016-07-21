@@ -58,6 +58,7 @@ my $moderate_trackbacks = 1;
 # Email address and SMTP server used for notifications and moderation requests.
 my $address = 'jdoe@example.com';
 my $smtp_server = 'smtp.example.com';
+my $smtp_port = 25;
 
 # SMTP Auth credentials are optional; leave null if authentication not desired.
 my $smtp_user = '';
@@ -806,7 +807,7 @@ sub send_notification {
     # Load Net::SMTP module only now that it's needed.
     require Net::SMTP; Net::SMTP->import;
 
-    my $smtp = Net::SMTP->new($smtp_server);
+    my $smtp = Net::SMTP->new($smtp_server, Port => $smtp_port );
     
     # If an SMTP username and password are defined, attempt SMTP Auth.
     if ( ($smtp_user) && ($smtp_pass) ) {
