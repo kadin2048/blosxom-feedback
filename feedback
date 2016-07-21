@@ -59,6 +59,10 @@ my $moderate_trackbacks = 1;
 my $address = 'jdoe@example.com';
 my $smtp_server = 'smtp.example.com';
 
+# SMTP Auth credentials are optional; leave null if authentication not desired.
+my $smtp_user = '';
+my $smtp_pass = '';
+
 # Default values for fields not submitted with the comment or TrackBack ping.
 my $default_name = "Someone";
 my $default_blog_name = "An unnamed blog";
@@ -803,6 +807,12 @@ sub send_notification {
     require Net::SMTP; Net::SMTP->import;
 
     my $smtp = Net::SMTP->new($smtp_server);
+    
+    # If an SMTP username and password are defined, attempt SMTP Auth.
+    if ( ($smtp_user) && ($smtp_pass) ) {
+        $smtp->auth( $smtp_user, $smtp_pass )
+    };
+    
     $smtp->mail($address);
     $smtp->to($address);
     $smtp->data();
