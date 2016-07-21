@@ -1,7 +1,7 @@
 # Blosxom Plug-in: feedback
 # Author: Frank Hecker (http://www.hecker.org/)
 #
-# Version 0.23
+# Version 0.24-DEV
 
 package feedback;
 
